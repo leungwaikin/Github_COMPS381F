@@ -94,7 +94,16 @@ app.get('/login', function(req, res) {
         res.render('login.ejs', {
 		});
     });
-	
+
+app.get('/edit', function(req, res) {  //Some error in edit two file
+        res.render('edit.ejs', {
+		});
+    });
+app.get('/create_restaurant', function(req, res) {
+        res.render('create_restaurant.ejs', {
+		});
+    });
+
 	
 app.listen(port, function () {
   console.log('App is listening on port ' + port);
