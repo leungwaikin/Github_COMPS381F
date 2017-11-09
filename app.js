@@ -80,15 +80,15 @@ app.use('/tmp', express.static('tmp'));
 	
     //Create
    app.post('/create', function(req, res) { 
-		var name =	req.body.borough;	 
+		var name =	req.body.name;	 
         var borough =req.body.borough;
-		var cuisine =req.body.borough;
-		var street =req.body.borough;
-		var building=req.body.borough;
-		var zipcode=req.body.borough;
-		var lon=req.body.borough;
-		var lat=req.body.borough;
-		var image =req.body.borough;
+		var cuisine =req.body.cuisine;
+		var street =req.body.street;
+		var building=req.body.building;
+		var zipcode=req.body.zipcode;
+		var lon=req.body.lon;
+		var lat=req.body.lat;
+		var image =req.body.image;
 		
 		/*To-DO insert data to mongodb*/ 
         /*res.render('login.ejs', {
