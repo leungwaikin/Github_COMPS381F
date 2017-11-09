@@ -70,6 +70,10 @@ app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
 		});
     });
+app.get('/create', function(req, res) {
+        res.render('login.ejs', {
+		});
+    });
 app.get('/remove', function(req, res) {  //delete Requirement 
         res.render('remove.ejs', {messsge:"Delete was successful"});
 });
