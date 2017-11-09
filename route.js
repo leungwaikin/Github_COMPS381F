@@ -16,7 +16,7 @@ module.exports = function(app) {
         });
     });
 	 //CREATE
-    app.post('/create', function(req, res) {  //Requirement 2
+    app.post('/new', function(req, res) {  //Requirement 2
         res.render('mainpage.ejs', {
             name:req.name,
 			borough:req.borough,	
@@ -29,9 +29,7 @@ module.exports = function(app) {
 			coord=[req.lon,req.lan]
         });
     });*/
-	app.get('/hello', function(req, res) {  //delete Requirement 
-        res.render('remove.ejs', {messsge:"Delete was successful"});
-    });
+	
 
     //LOGOUT
     app.get('/logout', function(req, res) {
