@@ -1,0 +1,16 @@
+<html>
+<head>
+<% include inc/head %>
+      <title>Login</title>
+   </head>
+   <body class="activities-page detail-page">
+      <% include inc/rate %>
+  
+<form acton="/rate?_id=<%= restaurant[i]._id %>" method="post">
+  <input type="hidden" name="_id"  value= "<%= restaurant[i]._id % >">
+  Score (1-10):<input  type="number" name="score" min=1 max=10>
+  <button type="submit">Rate</button>
+</form>
+</body>
+</html>
+
