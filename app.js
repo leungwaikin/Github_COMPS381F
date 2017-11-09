@@ -70,6 +70,9 @@ app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
 		});
     });
+app.get('/remove', function(req, res) {  //delete Requirement 
+        res.render('remove.ejs', {messsge:"Delete was successful"});
+});
 app.get('/read', function(req, res) {
         res.render('mainpage.ejs', {
 		});
@@ -78,14 +81,9 @@ app.get('/rate', function(req, res) {
         res.render('rate.ejs', {
 		});
     });
-
-app.get('/edit', function(req, res) {
-        res.render('edit.ejs', {
-		});
-    });
 	
 app.get('/new', function(req, res) {
-        res.render('create_restaurant.ejs', {
+        res.render('new.ejs', {
 		});
     });	
 	
@@ -94,12 +92,8 @@ app.get('/logout', function(req, res) {
 		});
     });
 
-app.get('/edit', function(req, res) {  //Some error in edit this file
-        res.render('edit.ejs', {
-		});
-    });
-app.get('/create_restaurant', function(req, res) {
-        res.render('create_restaurant.ejs', {
+app.get('/change', function(req, res) {  //Some error in edit this file
+        res.render('change.ejs', {
 		});
     });
 

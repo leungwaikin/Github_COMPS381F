@@ -9,7 +9,7 @@ module.exports = function(app) {
     });
 
     //LOGIN
-   app.post('/create', function(req, res) {  //Requirement 1
+   /*app.post('/create', function(req, res) {  //Requirement 1
         res.render('login.ejs', {
             name:req.name,
 			password:req.password		
@@ -28,6 +28,9 @@ module.exports = function(app) {
 			zipcode=req.zipcode,
 			coord=[req.lon,req.lan]
         });
+    });*/
+	app.get('/hello', function(req, res) {  //delete Requirement 
+        res.render('remove.ejs', {messsge:"Delete was successful"});
     });
 
     //LOGOUT
