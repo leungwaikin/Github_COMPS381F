@@ -144,13 +144,38 @@ app.use('/tmp', express.static('tmp'));
     });
 	
 	//MAIN Page
-	app.get('/mainpage', function(req, res) {
+	app.get('/read', function(req, res) {
         res.render('mainpage.ejs', {
+		/*var criteria = {};
+			for (key in req.query) {
+				criteria[key] = req.query[key];
+			}
 		});
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		findRestaurants(db,criteria,function(restaurants) {
+			db.close();
+			console.log('Disconnected MongoDB\n');
+			return(restaurants);
+			}
+		 }); 
+	    });*/
     });
 	//detail page
 	app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
+		   /*var id=req.query.id;
+		    MongoClient.connect(mongourl, function(err, db) {
+                assert.equal(err, null);
+                console.log('Connected to MongoDB\n');
+                db.collection('restaurants').findOne({_id: ObjectId(id)},function(err,doc) {
+				assert.equal(err,null);
+				db.close();
+				console.log('Disconnected from MongoDB\n');
+				return doc;
+		       });*/
+            });
 		});
     });
 	
@@ -169,6 +194,20 @@ app.listen(port, function () {
  });
 });
 
+/*
+function findRestaurants(db,criteria,callback) {
+	var restaurants = [];
+	cursor = db.collection('restaurants').find(criteria); 				
+	cursor.each(function(err, doc) {
+		assert.equal(err, null); 
+		if (doc != null) {
+			restaurants.push(doc);
+		} else {
+			callback(restaurants); 
+		}
+	});
+}
+*/
 /*app.listen(port, function () {
   console.log('App is listening on port ' + port);
  });*/
