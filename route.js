@@ -8,7 +8,27 @@ module.exports = function(app) {
 		});
     });
 
-
+    //LOGIN
+   app.post('/create', function(req, res) {  //Requirement 1
+        res.render('login.ejs', {
+            name:req.name,
+			password:req.password		
+        });
+    });
+	 //CREATE
+    app.post('/create', function(req, res) {  //Requirement 2
+        res.render('mainpage.ejs', {
+            name:req.name,
+			borough:req.borough,	
+			cuisine:req.cuisine,
+			image:req.image,
+			mimetype=image.mimetype,
+			street=req.street,
+			building=req.building,
+			zipcode=req.zipcode,
+			coord=[req.lon,req.lan]
+        });
+    });
 
     //LOGOUT
     app.get('/logout', function(req, res) {

@@ -1,8 +1,11 @@
 <html>
 <head>
+ <% include inc/head %>
 <title>Edit</title>
 </head>
 <body>
+    <% include inc/navbar_login %>
+	      <div class="container site-container">
 <form id='details' method='GET' action='/update'>
 <input type="hidden" name="_id" value="<%=queryAsObject._id%>"><br>
 Name: <input type="text" name="name" value="<%=queryAsObject.name%>" ><br>
@@ -17,6 +20,7 @@ GPS Coordinates (lan.): <input name="lan" type="text" value="<%=queryAsObject.la
 
 Photo:<input name="image" type="file"><br>
 </form>
+</div>
 <script>
 function goBack() {window.history.back();}
 </script>
