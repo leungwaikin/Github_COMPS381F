@@ -156,7 +156,7 @@ app.use('/tmp', express.static('tmp'));
 	
 	//edit
 	app.get('/edit', function(req, res) {
-        res.render('edit.ejs', {
+        res.render('change.ejs', {
 		});
     });
 	
