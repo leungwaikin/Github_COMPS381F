@@ -4,15 +4,15 @@
    </head>
    <body>
    <h1>Restaurant</h1>
-   User:<%= username %><br>
-   Showing <%=restaurant.length %> (criteria: {})<br>
+   User:<!--<%= username %>--<br>
+   Showing <!--<%=restaurant.length %> (criteria: {})--><br>
    <button type="submit">Create New Restaurant</button>
    <ul>
-   <% if (restaurant.length !=0) { %>
+   <!--<% if (restaurant.length !=0) { %>
      <% for (var i in restaurants) {%>
         <li><a href="/display?_id= <%= restaurant[i]._id %> "> <%= restaurant[i].name %> </a></li>
      <% } %>
-   <% } %>
+   <% } %>-->
   </ul>    	  
    </body>
 </html>
