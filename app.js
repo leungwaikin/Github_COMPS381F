@@ -1,7 +1,7 @@
 /*
 author: wingkwong
 */
-
+//var cookieSession = require('cookie-session'); //Requirement 1
 var express = require('express');
 var app = express();
 var fs = require('fs');
@@ -15,7 +15,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 10850;
 
-
+//app.use(cookieSession({  //Requirement 1
+  //name: 'session',
+  //keys: ['key1', 'key2']
+//}));
 
 
 /*
@@ -67,7 +70,7 @@ app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
 		});
     });
-app.get('/mainpage', function(req, res) {
+app.get('/read', function(req, res) {
         res.render('mainpage.ejs', {
 		});
     });
@@ -81,7 +84,7 @@ app.get('/edit', function(req, res) {
 		});
     });
 	
-app.get('/create', function(req, res) {
+app.get('/new', function(req, res) {
         res.render('create_restaurant.ejs', {
 		});
     });	
@@ -91,7 +94,7 @@ app.get('/logout', function(req, res) {
 		});
     });
 
-app.get('/edit', function(req, res) {  //Some error in edit two file
+app.get('/edit', function(req, res) {  //Some error in edit this file
         res.render('edit.ejs', {
 		});
     });
