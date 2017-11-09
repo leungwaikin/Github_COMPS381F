@@ -43,25 +43,6 @@ app.engine('ejs', require('ejs').renderFile);
 // ROUTE
 require('./route'); 
 
-/*
-fs.readdirSync('./controllers').forEach(function (file) {
-  if(file.substr(-3) == '.js') {
-      route = require('./controllers/' + file);
-      route.controller(app);
-  }
-});
-
-
-/*
-	MongoDB
-*/
-
-//DEV
-
-
-//PRD
-//mongoose.connect('mongodb://wingkwong:tplNPyl1FB@mongodb.cloudno.de:27017/sepj');
-
 console.log("Connecting to MongoDB");
 
 /*
@@ -78,6 +59,10 @@ app.use('/tmp', express.static('tmp'));
 
 
 //route
+app.get('/', function(req, res) {
+        res.render('login.ejs', {
+		});
+    });
 app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
 		});
@@ -90,7 +75,18 @@ app.get('/rate', function(req, res) {
         res.render('rate.ejs', {
 		});
     });
-app.get('/login', function(req, res) {
+
+app.get('/edit', function(req, res) {
+        res.render('edit.ejs', {
+		});
+    });
+	
+app.get('/create', function(req, res) {
+        res.render('create_restaurant.ejs', {
+		});
+    });	
+	
+app.get('/logout', function(req, res) {
         res.render('login.ejs', {
 		});
     });
