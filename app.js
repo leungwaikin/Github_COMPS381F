@@ -65,39 +65,102 @@ app.use('/tmp', express.static('tmp'));
 
 
 //route
-app.get('/', function(req, res) {
+
+//login
+   app.get('/', function(req, res) {
         res.render('login.ejs', {
 		});
     });
-app.get('/detail', function(req, res) {
-        res.render('restaurant.ejs', {
+	
+	//Render create
+	 app.get('/create', function(req, res) { 
+	  res.render('create.ejs', {
 		});
     });
-app.get('/mainpage', function(req, res) {
+	
+    //Create
+   app.post('/create', function(req, res) { 
+		var name =	req.body.borough;	 
+        var borough =req.body.borough;
+		var cuisine =req.body.borough;
+		var street =req.body.borough;
+		var building=req.body.borough;
+		var zipcode=req.body.borough;
+		var lon=req.body.borough;
+		var lat=req.body.borough;
+		var image =req.body.borough;
+		
+		/*To-DO insert data to mongodb*/ 
+        /*res.render('login.ejs', {
+            name:req.name,
+			password:req.password		
+        });*/
+    });
+	
+	 //CREATE
+    /*app.post('/create', function(req, res) {  //Requirement 2
         res.render('mainpage.ejs', {
-		});
+           /* name:req.name,
+			borough:req.borough,	
+			cuisine:req.cuisine,
+			image:req.image,
+			mimetype=image.mimetype,
+			street=req.street,
+			building=req.building,
+			zipcode=req.zipcode,
+			coord=[req.lon,req.lan]
+        });
+    });*/
+	
+	//Register	
+    app.post('/register',function(req,res){
+		var username =req.body.username; //Requirement 1
+		var password =req.body.password;
+	});
+    //LOGOUT
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
     });
-app.get('/rate', function(req, res) {
+	
+	//Rate
+	app.get('/rate/:id', function(req, res) {
         res.render('rate.ejs', {
 		});
     });
 
-app.get('/edit', function(req, res) {
+
+    // REGISTER
+    app.get('/register', function(req, res) {
+        res.render('register.ejs', {
+          
+        });
+    });
+	
+	//Detail
+	app.get('/detail', function(req, res) {
+        res.render('restaurant.ejs', {
+		});
+    });
+	
+	//MAIN Page
+	app.get('/mainpage', function(req, res) {
+        res.render('mainpage.ejs', {
+		});
+    });
+	//detail page
+	app.get('/detail', function(req, res) {
+        res.render('restaurant.ejs', {
+		});
+    });
+	
+	//edit
+	app.get('/edit', function(req, res) {
         res.render('edit.ejs', {
 		});
     });
 	
-app.get('/create', function(req, res) {
-        res.render('create_restaurant.ejs', {
-		});
-    });	
-	
-app.get('/logout', function(req, res) {
-        res.render('login.ejs', {
-		});
-    });
-	
-var db
+var db;
 MongoClient.connect('mongodb://comps381f:comps381f@ds141274.mlab.com:41274/steveysh', (err, database) => {
   if (err) return console.log(err)
   db = database;
