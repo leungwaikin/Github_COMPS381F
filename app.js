@@ -98,14 +98,14 @@ app.get('/logout', function(req, res) {
     });
 	
 var db
-/*MongoClient.connect('mongodb://steveysh:comps381f@ds141274.mlab.com:41274/steveysh', (err, database) => {
+MongoClient.connect('mongodb://comps381f:comps381f@ds141274.mlab.com:41274/steveysh', (err, database) => {
   if (err) return console.log(err)
   db = database;
 app.listen(port, function () {
   console.log('App is listening on port ' + port);
  });
-});*/
+});
 
-app.listen(port, function () {
+/*app.listen(port, function () {
   console.log('App is listening on port ' + port);
- });
+ });*/

@@ -1,11 +1,14 @@
 <html>
-<head>
-<% include inc/head %>
-<title>Create New Restaurant</title>
-</head>
-<body>
-<% include inc/navbar_login %>
-<div class="container site-container">
+   <head>
+      <% include inc/head %>
+      <title>CREATE - RESTAURANT</title>
+   </head>
+   <body>
+      <% include inc/navbar_create%>
+      <div class="container site-container">
+
+
+
 <form action="/create" method="post">
   Name:<input name="name" type="text" required><br>
   Borough:<input name="borough" type="text" required><br>
