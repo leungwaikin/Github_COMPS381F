@@ -1,0 +1,12 @@
+<html>
+<title>Rate</title>
+<body>
+  <h2>Rate </h2>
+<form acton="/rate?_id=<%= restaurant[i]._id %>" method="post">
+  <input type="hidden" name="_id"  value= "<%= restaurant[i]._id % >">
+  Score (1-10):<input  type="number" name="score" min=1 max=10>
+  <button type="submit">Rate</button>
+</form>
+</body>
+</html>
+

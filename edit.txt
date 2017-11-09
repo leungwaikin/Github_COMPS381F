@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Edit</title>
+</head>
+<body>
+<form id='details' method='GET' action='/update'>
+<input type="hidden" name="_id" value="<%=queryAsObject._id%>"><br>
+Name: <input type="text" name="name" value="<%=queryAsObject.name%>" ><br>
+Borough: <input type="text" name="borough" value="<%=queryAsObject.borough%>'" ><br>
+Cuisine: <input type="text" name="cuisine" value="<%=queryAsObject.cuisine%>'" ><br>
+Building: <input type="text" name="address.building" value="<%=queryAsObject.building%>" ><br>
+Street: <input type="text" name="address.street" value="<%=queryAsObject.street%>" ><br>
+Zipcode: <input type="text" name="address.zipcode" value="<%=queryAsObject.zipcode%>" ><br>
+
+GPS Coordinates (lon.): <input name="lon" type="text" value="<%=queryAsObject.lon%>"><br>
+GPS Coordinates (lan.): <input name="lan" type="text" value="<%=queryAsObject.lan%>"><br>
+
+Photo:<input name="image" type="file"><br>
+</form>
+<script>
+function goBack() {window.history.back();}
+</script>
+<button type="submit" form="details" value="Edit">Update</button>
+<button onclick="goBack()">Go Back</button>
