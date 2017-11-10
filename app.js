@@ -219,6 +219,9 @@ function findRestaurants(db,criteria,callback) {
 	});
 }
 */
+<<<<<<< HEAD
+>>>>>>> 21db19a904ae95633813cf9a64122b5ec504ff42
+=======
 >>>>>>> 21db19a904ae95633813cf9a64122b5ec504ff42
 /*app.listen(port, function () {
   console.log('App is listening on port ' + port);
