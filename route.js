@@ -1,7 +1,8 @@
    var express = require('express');
 	var app = express();
+	app.set('view engine', 'ejs');
 	
-module.exports = function(app) {
+
 	
    app.get('/', function(req, res) {
         res.render('login.ejs', {
@@ -82,4 +83,3 @@ module.exports = function(app) {
         res.render('mainpage.ejs', {
 		});
     });
-}

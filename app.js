@@ -1,6 +1,3 @@
-/*
-author: wingkwong
-*/
 
 var express = require('express');
 var app = express();
@@ -14,8 +11,11 @@ var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 10850;
-const MongoClient = require('mongodb').MongoClient;
-
+var http = require('http');
+var url  = require('url');
+var MongoClient = require('mongodb').MongoClient; 
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
 
 
 /*
@@ -67,8 +67,10 @@ app.use('/tmp', express.static('tmp'));
 //route
 
 //login
+
    app.get('/', function(req, res) {
         res.render('login.ejs', {
+			fun : tesing()
 		});
     });
 	
@@ -80,21 +82,21 @@ app.use('/tmp', express.static('tmp'));
 	
     //Create
    app.post('/create', function(req, res) { 
-		var name =	req.body.borough;	 
+		var name =	req.body.name;	 
         var borough =req.body.borough;
-		var cuisine =req.body.borough;
-		var street =req.body.borough;
-		var building=req.body.borough;
-		var zipcode=req.body.borough;
-		var lon=req.body.borough;
-		var lat=req.body.borough;
-		var image =req.body.borough;
+		var cuisine =req.body.cuisine;
+		var street =req.body.street;
+		var building=req.body.building;
+		var zipcode=req.body.zipcode;
+		var lon=req.body.lon;
+		var lat=req.body.lat;
+		var image =req.body.image;
 		
 		/*To-DO insert data to mongodb*/ 
         /*res.render('login.ejs', {
             name:req.name,
 			password:req.password		
-        });*/
+        });
     });
 	
 	 //CREATE
@@ -109,8 +111,8 @@ app.use('/tmp', express.static('tmp'));
 			building=req.building,
 			zipcode=req.zipcode,
 			coord=[req.lon,req.lan]
-        });
-    });*/
+        });*/
+    });
 	
 	//Register	
     app.post('/register',function(req,res){
@@ -128,8 +130,12 @@ app.use('/tmp', express.static('tmp'));
         res.render('rate.ejs', {
 		});
     });
-
-
+	
+// put rate
+	app.put('/rate/:id', function(req, res) {
+        res.render('rate.ejs', {
+		});
+    });
     // REGISTER
     app.get('/register', function(req, res) {
         res.render('register.ejs', {
@@ -138,19 +144,44 @@ app.use('/tmp', express.static('tmp'));
     });
 	
 	//Detail
-	app.get('/detail', function(req, res) {
+	app.get('/detail', function(req, res) {		
         res.render('restaurant.ejs', {
 		});
     });
 	
 	//MAIN Page
-	app.get('/mainpage', function(req, res) {
+	app.get('/read', function(req, res) {
         res.render('mainpage.ejs', {
+		/*var criteria = {};
+			for (key in req.query) {
+				criteria[key] = req.query[key];
+			}
 		});
+		MongoClient.connect(mongourl, function(err, db) {
+		assert.equal(err,null);
+		console.log('Connected to MongoDB\n');
+		findRestaurants(db,criteria,function(restaurants) {
+			db.close();
+			console.log('Disconnected MongoDB\n');
+			return(restaurants);
+			}
+		 }); 
+	    });*/
     });
 	//detail page
 	app.get('/detail', function(req, res) {
         res.render('restaurant.ejs', {
+		   /*var id=req.query.id;
+		    MongoClient.connect(mongourl, function(err, db) {
+                assert.equal(err, null);
+                console.log('Connected to MongoDB\n');
+                db.collection('restaurants').findOne({_id: ObjectId(id)},function(err,doc) {
+				assert.equal(err,null);
+				db.close();
+				console.log('Disconnected from MongoDB\n');
+				return doc;
+		       });*/
+            });
 		});
     });
 	
@@ -168,7 +199,27 @@ app.listen(port, function () {
   console.log('App is listening on port ' + port);
  });
 });
+<<<<<<< HEAD
+function tesing(){
+	console.log("show");
+}
+=======
 
+/*
+function findRestaurants(db,criteria,callback) {
+	var restaurants = [];
+	cursor = db.collection('restaurants').find(criteria); 				
+	cursor.each(function(err, doc) {
+		assert.equal(err, null); 
+		if (doc != null) {
+			restaurants.push(doc);
+		} else {
+			callback(restaurants); 
+		}
+	});
+}
+*/
+>>>>>>> 21db19a904ae95633813cf9a64122b5ec504ff42
 /*app.listen(port, function () {
   console.log('App is listening on port ' + port);
  });*/
