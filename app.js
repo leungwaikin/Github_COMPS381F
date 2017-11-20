@@ -256,7 +256,7 @@ app.listen(port, function () {
 		console.log("changing doc");
 		console.log("1:"+req.body.creator);
 		console.log("2"+req.session.username);
-	
+		//Problem 1 can not update photo
 		var imageString="";
 		if (req.files.ima){
 		let image = req.files.ima;
@@ -429,6 +429,7 @@ app.listen(port, function () {
 		console.log(result.grade[0]);
 		console.log("session="+req.session.username);
 		console.log(result.grade[0].username);
+		//Problem 2 username undefined
 		if(result.grade.length!=0)
 		for (var j=0 ; j<=result.grade.length;j++){
 			var user = result.grade[j].username;
