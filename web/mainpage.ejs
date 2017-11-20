@@ -1,18 +1,53 @@
 <html>
    <head>
-      <title>Login</title>
+      <% include inc/head %>
+      <title>Mainpage</title>
    </head>
-   <body>
+   <body class="activities-page detail-page">
+   <% include inc/navbar_auth %>
+   <div class="container site-container">
+   <div class="row">
+            <div class="thumbnail">
    <h1>Restaurant</h1>
-   User:<!--<%= username %>--<br>
-   Showing <!--<%=restaurant.length %> (criteria: {})--><br>
-   <button type="submit">Create New Restaurant</button>
+   User:
+   Showing <%=restaurant.length%> document (criteria: <%=JSON.stringify(incriteria)%>)<br>
+   <a href="new"> <button type="submit">Create New Restaurant</button></a>
+
+   <% if (restaurant) {%>
    <ul>
-   <!--<% if (restaurant.length !=0) { %>
-     <% for (var i in restaurants) {%>
-        <li><a href="/display?_id= <%= restaurant[i]._id %> "> <%= restaurant[i].name %> </a></li>
-     <% } %>
-   <% } %>-->
-  </ul>    	  
+   <% restaurant.forEach(function(res){%>
+ 
+  
+   <li><a href="/display?_id=<%=res._id%>"> <%=res.name %>  </a></li>
+   
+    <%})%>
+	</ul>
+   <%}%>
+   <% if (restaurant) {%>
+   <% restaurant.forEach(function(res){%>
+   <select name="borough">
+   <option value="<%=res.borough%>">	<%=res.borough%>  </option>
+   </select>
+   <input type="submit" value="Search by borough">
+    <%})%>
+   <%}%><br>
+   
+   
+     <% if (restaurant) {%>
+
+   <% restaurant.forEach(function(res){%>
+   <select name="name">
+   <option value="<%=res.name%>"> <%=res.name%>  </option>
+   </select>
+   <input type="submit" value="Search by name">
+    <%})%>
+   <%}%><br>
+   
+
+
+  
+   </div>
+   </div>
+   </div>
    </body>
 </html>

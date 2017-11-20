@@ -6,8 +6,8 @@
    <body>
       <% include inc/navbar_rate %>
 	     <div class="container site-container">
-<form acton="/rate?_id=<%= restaurant[i]._id %>" method="post">
-  <input type="hidden" name="_id"  value= "<%= restaurant[i]._id % >">
+<form acton="/rate/<%=result._id%>" method="post">
+  <input type="hidden" name="_id"  value= "">
   Score (1-10):<input  type="number" name="score" min=1 max=10>
   <button type="submit">Rate</button>
 </form>

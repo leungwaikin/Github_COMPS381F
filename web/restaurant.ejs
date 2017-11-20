@@ -6,44 +6,60 @@
    <body class="activities-page detail-page">
       <% include inc/navbar_auth %>
       <div class="container site-container">
+	
          <div class="row">
             <div class="thumbnail">
-			 <h2><a href="#">Starbucks</a>
+			 <h2><%=result.name%></h2>
+			 
                <!-- photo -->
-              
-               <!--
-                  <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                  -->
+             <br>
+               <%if(result.image){%>
+                  <img class="img-responsive" src="/img/<%=result.image%>.png" alt="">
+                <%}%>
                <div class="caption-full">
                  
                   </h2>
-                  <div class="sub-header">Borough:</div>
+				 
+                  <div class="sub-header">Borough:<%=result.borough%></div>
                   <p></p>
-                  <div class="sub-header">Cuisine</div>
+                  <div class="sub-header">Cuisine:<%=result.cuisine%></div>
+				  <p></p>
+				  <%if(result.address){%>
+				  <div class="sub-header">Street:
+				  <%if(result.address.street){%><%=result.address.street%><%}%></div>
                   <p></p>
-                  <div class="sub-header">Building:</div>
-						   <p>
-                      </p>
-                  <div class="sub-header">Zipcode:</div>
+                  <div class="sub-header">Building:<%if(result.address.building){%><%=result.address.building%><%}%></div>
+					<p></p>
+                  <div class="sub-header">Zipcode:<%if(result.address.zipcode){%><%=result.address.zipcode%><%}%></div>
+				  <%}%>
                   <p></p>
-                  <div class="sub-header">GPS:</div>
+                  <div class="sub-header">GPS:[<%=result.lon%>,<%=result.lat%>]</div>
                   <p></p>
-                  <div class="sub-header">Rating:</div>
-                  <p></p>
-                  <div class="sub-header">Created by:</div>
-                  <p></p>
-                  
-                  
-                  <a href="/activities/detail" >Google map</a><br>
+                  <div class="sub-header">Rating:
+				  <% if(result.grade!=undefined){%>
+				   <ol>
+				  <% for(var i=0;i<result.grade.length;i++){%>
+				 
+				  <li><%=result.grade[i].score%>(<%=result.grade[i].username%>)</li>
 				  
-                  <a href="/rate" data-id="" class="btn btn-primary btn-md rate-restaurant-btn">Rate</a> 
+				  <%}%>
+				  </ol>
+				  <%}%></div>
+                  <p></p>
+                  <div class="sub-header">Created by:<%=result.creator%></div>
+                  <p></p>
+                                  				 
+				
+                 <a href="/gmap?lat=<%=result.lat%>&lon=<%=result.lon%>&title=<%=result.name%>" >Google map</a><br>
+				  
+                  <a href="/rate?_id=<%=result._id%>" data-id="" class="btn btn-primary btn-md rate-restaurant-btn">Rate</a> 
                   
-                  <a href="/edit" data-id="" class="btn btn-primary btn-md edit-restaurant-btn">Edit</a>
+                  <a href="/change?_id=<%=result._id%>" data-id="" class="btn btn-primary btn-md edit-restaurant-btn">Edit</a>
                   
                   
                      
-                  <a href="/delete" data-id="" class="btn btn-primary btn-md delete-restaurant-btn">Delete</a>
-				  <a href="/mainpage" data-id="" class="btn btn-primary btn-md delete-restaurant-btn">Go back</a>
+                  <a href="/remove?_id=<%=result._id%>" data-id="" class="btn btn-primary btn-md delete-restaurant-btn">Delete</a>
+				  <a href="/read" data-id="" class="btn btn-primary btn-md delete-restaurant-btn">Go back</a>
                 
                   
                </div>
