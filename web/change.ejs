@@ -21,8 +21,9 @@ GPS Coordinates (lan.): <input name="lat" type="text" value="<%=result[0].lat%>"
 <%if(result[0].image){%>
 <img class="img-responsive" src="/img/<%=result[0].image%>.png" alt="">
 <%}%>
-<input type="hidden" name="creator" value="<%=result[0].creator%>">
-Upload new Photo:<input name="ima" type="file"><br>
+
+<input type="hidden" name="oldImage" value="<%=result[0].image%>">
+Upload new Photo:<input name="ima" type="file" value="result[0].image"><br>
 </form>
 <script>
 function goBack() {window.history.back();}

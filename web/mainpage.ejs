@@ -23,7 +23,22 @@
     <%})%>
 	</ul>
    <%}%>
-   <% if (restaurant) {%>
+   <form id="search" action="/filter" method="get">
+     <select name="searchBy">
+	 <option value="name">name</option>
+    <option value="borough">borough</option>
+    <option value="cuisine">cuisine</option>
+    <option value="street">street</option>
+    <option value="building">building</option>
+	 <option value="zipcode">zipcode</option>
+	  <option value="lot">lot</option>
+	  <option value="lat">lat</option>
+	   <option value="creator">creator</option>
+	   </select>
+	   <input type="text" name="condition">
+	   <input type="submit" value="submit"></button>
+   </form>
+   <!--<% if (restaurant) {%>
    <% restaurant.forEach(function(res){%>
    <select name="borough">
    <option value="<%=res.borough%>">	<%=res.borough%>  </option>
@@ -41,7 +56,7 @@
    </select>
    <input type="submit" value="Search by name">
     <%})%>
-   <%}%><br>
+   <%}%><br>--->
    
 
 

@@ -1,12 +1,13 @@
 {
   "name": "DCOMPS381F",
+  "author": "COMPS381F students",
   "version": "1.0.0",
-  "description": "",
+  "description": "project",
   "main": "app.js",
+   "engine": "node >= 0.10.0", 
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "app.js"
   },
-  "author": "test",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

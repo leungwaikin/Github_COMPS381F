@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var fs = require('fs');
@@ -55,7 +54,8 @@ var SECRETKEY2 = 'Keep this to yourself';
 
 var users = new Array(
 	{name: 'developer', password: 'developer'},
-	{name: 'guest', password: 'guest'}
+	{name: 'guest', password: 'guest'},
+	{name: 'demo'}
 );
 //Session
 app.use(session({
@@ -108,6 +108,13 @@ app.listen(port, function () {
 	console.log("Entered:"+req.body.username);
 	console.log("Entered:"+req.body.password);
 	for (var i=0; i<users.length; i++) {
+		if(req.body.username=="demo"&&users[i].name == req.body.username ){
+			req.session.authenticated = true;
+			req.session.username = users[i].name;
+			console.log("Got:1"+ req.session.username);
+			res.redirect('/read');
+			return next()
+		}
 		if (users[i].name == req.body.username &&
 		    users[i].password == req.body.password) {
 			req.session.authenticated = true;
@@ -137,20 +144,21 @@ app.listen(port, function () {
 		console.log(req.session.username +"changing doc");
 		db.collection('restaurant').findOne({_id:ObjectId(got_id)},function(err,result){
 		if(result.creator!=req.session.username){
+			console.log("*****************AAA");
+			var action = "Warning";
 			var message = "you are not the owner";
-		  res.render('remove.ejs',{message: message});
+			res.render('remove.ejs',{message: message, action: action});
 		}else{
-		var restaurant=[];
-		var cursor=db.collection('restaurant').find({_id: ObjectId(got_id)});
-		cursor.each(function(err,doc){  
-		  if(doc!=null){
-		    console.log(doc);
-		    restaurant.push(doc);
-		   }else{
-			   
-		
-		     res.render('change.ejs', {result:restaurant ,action:"change"});
-		   }
+			console.log("*****************BBB");
+			var restaurant=[];
+			var cursor=db.collection('restaurant').find({_id: ObjectId(got_id)});
+			cursor.each(function(err,doc){  
+			  if(doc!=null){
+				console.log(doc);
+				restaurant.push(doc);
+			   }else{
+				 res.render('change.ejs', {result:restaurant ,action:"change"});
+			   }
 		});
 		
 		}
@@ -253,18 +261,23 @@ app.listen(port, function () {
 	//update mongoDB
 	app.post('/change', function(req, res) {
 		var action="change";
+		var createObj = {};	
+		console.log("*** 1");
 		console.log("changing doc");
 		console.log("1:"+req.body.creator);
 		console.log("2"+req.session.username);
-		//Problem 1 can not update photo
+		var image2 =null;
 		var imageString="";
+		
 		if (req.files.ima){
-		let image = req.files.ima;
+			
+			console.log("***********************111");
+		image2 = req.files.ima;
 		var imgName = new Date().getTime();
 		var newPath = __dirname + "/img/" + imgName + ".png";
 		imageString = imgName;
 		console.log("newPath="+newPath);
-		 image.mv(newPath, function(err) {
+		 image2.mv(newPath, function(err) {
 			 
 			if (err)
 			console.log(err)
@@ -272,22 +285,17 @@ app.listen(port, function () {
 			
    
 		 
-  });
+			});
 		}else{
-			
-		db.collection('restaurant').find({_id:ObjectId(oid)},(err, restaurant) => {
-		if (err) 	
-			console.log(err);
-		else
-		console.log("old photo:"+restaurant.image);
-		createObj.image=restaurant.image; 
-		
-		});
+			console.log("image:"+req.body.oldImage);
+		if(req.body.oldImage!=undefined)
+		imageString = req.body.oldImage;
+		createObj.image = imageString;
 		}
 		//working
 		var oid = req.query._id;
 		
-		var createObj = {};	
+		
 		
 		createObj.address={};
 		createObj=req.body;	
@@ -301,6 +309,10 @@ app.listen(port, function () {
 		createObj.creator = req.session.username;
 		console.log("nothing:"+JSON.stringify(createObj));
 		
+		//if(imageString != ""){
+			createObj.image=imageString; 
+		//}
+		
 		
 		createObj.address.street =req.body.street;
 		createObj.address.building=req.body.building;
@@ -309,7 +321,7 @@ app.listen(port, function () {
 		delete createObj.street;
 		delete createObj.building;
 		delete createObj.zipcode;
-		
+		delete createObj.oldImage;
 		/*var name =	req.query.name;	 
         var borough =req.query.borough;
 		var cuisine =req.query.cuisine;
@@ -428,19 +440,23 @@ app.listen(port, function () {
 		console.log(result.grade.length);
 		console.log(result.grade[0]);
 		console.log("session="+req.session.username);
-		console.log(result.grade[0].username);
-		//Problem 2 username undefined
-		if(result.grade.length!=0)
-		for (var j=0 ; j<=result.grade.length;j++){
+		//console.log(result.grade[0].username);
+		console.log("Test 1");
+		if(result.grade.length!=0){
+			console.log("Test 2");
+		for (var j=0 ; j<=result.grade.length-1;j++){
+			console.log("Test 4");
 			var user = result.grade[j].username;
 			console.log(user);
 		       if (session == user){
+				   console.log("Test 5");
 				message ="You have rated this restaurant"
 				Toupdate=false;
 				break;
 				}
 		}
-		    
+		}
+		    console.log("Test 6");
 		
 		/*for(var i in result){
 			console.log(result[i].grade);
@@ -454,16 +470,18 @@ app.listen(port, function () {
 					res.render('remove.ejs',{message:"You have rated this restaurant"});*/
 			
 		//}
-	  if(Toupdate)
+	  if(Toupdate){
 	  db.collection('restaurant').update({_id:ObjectId(oid)},{$push:{'grade':grade}},(err, result) => {
 		if (err) 	
 			console.log(err);
-		else
-		message="You have rated this restaurant"
+		
 		
 		
   });
-		res.render('remove.ejs',{message:message,action:action});
+  message= "rated successfully";
+  }
+  
+		res.render('remove.ejs',{message:message});
 		}); 
     });
 	
@@ -498,10 +516,10 @@ app.listen(port, function () {
 		});
     });
 	
-	//Delete
+	// 
 	app.get('/remove',isLoggedIn, function(req, res) {  //delete Requirement 
 	  var oid = req.query._id;
-	  var action="remove";
+	  var action="Remove";
 	    /*
 		var criteria = {};
 			for (key in req.query) {
@@ -522,7 +540,7 @@ app.listen(port, function () {
 		 db.collection('restaurant').findOne({_id:ObjectId(oid)},function(err,result){
 			 
 	if(req.session.username != result.creator){
-		res.render('remove.ejs', {message:"You are not the owner"});
+		res.render('remove.ejs', {message:"You are not the owner",action:action});
 	}else{
 	
 	db.collection('restaurant').remove({_id:ObjectId(oid)},(err, result) => {
@@ -530,15 +548,97 @@ app.listen(port, function () {
 			console.log(err);
 		else{
 		
-		 res.render('remove.ejs', {message:"Delete was successful",action:action});
+		 res.render('remove.ejs', {message:"Delete was successful", action:action});
 	} 
 	});
 	}
 	});
   });
 	
-       
-    
+       //*** API POST restaurant Create
+	/*app.post('/api/create',isLoggedIn, function(req, res) {  //delete Requirement 
+	  //var oid = req.query._id;
+	  var action="INFO";
+	    
+		//console.log("*********** AAA ");
+		
+		 res.render('remove.ejs', {message:"API POst request successful", action:action});
+	
+  });	   
+	   
+	          //*** API GET restaurant Read
+	app.get('/api/read',isLoggedIn, function(req, res) {  //delete Requirement 
+	  //var oid = req.query._id;
+	  var action="INFO";
+	    console.log("X Value "   + req.query.X);
+		console.log("*********** AAA ");
+		
+		 res.render('remove.ejs', {message:"API REad request successful", action:action});
+	
+  });	 */
+
+  app.post('/api/restaurant/create', function(req, res) { 
+	  var criteria={};
+	  
+	
+	  for (key in req.query){
+		  
+		  criteria[key]=req.query[key];
+		  
+	  }
+	  console.log("criteria="+JSON.stringify(criteria));
+	    db.collection('restaurant').insert(criteria,(err, restaurant) => {
+			console.log("restaurant="+restaurant._id);
+		if (err) {
+                response = {
+                    "status": false,                 
+                };
+            } else {
+                response = {
+                    "status": "ok",
+                    "_id": req.query._id
+                };
+            }
+            
+		
+		 res.json(response);
+		});
+  });	   
+  
+ app.get('/api/restaurant/read/:searchBy/:condition', function(req, res) {  
+	  //var oid = req.query._id;
+	  var searchBy= req.params.searchBy;
+	  var condition = req.params.condition;
+	  var criteria={};
+		 criteria[searchBy]=condition;
+		
+		
+		var restaurant=[];
+		 console.log("criteria="+JSON.stringify(criteria));
+		 
+		 var cursor=db.collection('restaurant').find(criteria);
+		 cursor.each(function(err,doc){  
+		
+		  if(doc!=null){
+		    console.log(doc);
+		    restaurant.push(doc);
+		   }else{
+			   res.json(restaurant);
+		   }
+		});
+		
+		
+	
+		
+	
+  });	
+  
+  app.delete('/delete',function(req,res){
+		
+		db.collection('restaurant').remove({});
+  });
+		
+		
 	//MAIN Page
 	app.get('/read' ,isLoggedIn,function(req, res,next) {
 	    console.log(req.session.username +"reading doc");
@@ -559,6 +659,29 @@ app.listen(port, function () {
 			 //return next();
 		   }
 		});
+	});
+	app.get('/filter',isLoggedIn,function(req,res,next){
+		 console.log(req.session.username +"searching doc");
+		 var criteria={};
+		 criteria[req.query.searchBy]=req.query.condition;
+		 console.log(req.query.searchBy);
+		 console.log(req.query.condition);
+		
+		
+		 console.log("criteria="+JSON.stringify(criteria));
+		 var restaurant=[];
+		 var cursor=db.collection('restaurant').find(criteria);
+		 cursor.each(function(err,doc){  
+		  if(doc!=null){
+		    console.log(doc);
+		    restaurant.push(doc);
+		   }else{
+		   
+		     res.render('mainpage.ejs', {restaurant:restaurant,incriteria:criteria});//incriteria:criteria
+			 //return next();
+		   }
+		});
+	});
 	//detail page
 	/*
 	app.get('/display',isLoggedIn, function(req, res,next) {
@@ -619,7 +742,9 @@ app.listen(port, function () {
   console.log('App is listening on port ' + port);
  });
 	});*/
-			});
+	
+
+			
 function isLoggedIn(req, res, next) {
 
     if (req.session.authenticated)
