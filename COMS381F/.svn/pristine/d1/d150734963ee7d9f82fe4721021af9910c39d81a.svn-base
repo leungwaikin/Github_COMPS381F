@@ -1,0 +1,33 @@
+{
+  "name": "DCOMPS381F",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "test",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-fileupload": "^0.3.0",
+    "express-session": "^1.14.1",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.0",
+    "morgan": "^1.7.0",
+    "nodemailer": "^0.7.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-data": "^1.2.1",
+    "gulp-exif": "^0.10.0",
+    "gulp-extend": "^0.2.0"
+  }
+}

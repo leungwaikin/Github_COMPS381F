@@ -1,0 +1,14 @@
+<html>
+<head>
+    <% include inc/head %>
+      <title></title>
+   </head>
+   <body>
+     
+	       <div class="container site-container">
+                     <%= message %>
+                     <a href="/read"><button>Home</button></a>      
+
+   </div>
+   </body>
+</html>
