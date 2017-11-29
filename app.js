@@ -221,12 +221,17 @@ app.listen(port, function () {
 		createObj.grade=[];		
 		createObj.address={};
 		createObj.image=imageString; 
+		createObj.address.coord=[];
 		createObj.creator= req.session.username;
 		//if(req.body.street||req.body.building||req.body.zipcode){
 		createObj.address.street=req.body.street;
 		createObj.address.building=req.body.building;
 		createObj.address.zipcode=req.body.zipcode;
+		createObj.address.coord[0]=req.body.lon;
+		createObj.address.coord[1]=req.body.lat;
 		 //}
+		 delete createObj.lat;
+		 delete createObj.lon;
 		 delete createObj.street;
 		 delete createObj.building;
 		 delete createObj.zipcode;
@@ -304,6 +309,8 @@ app.listen(port, function () {
 		address.street='';
 		address.building='';
 		address.zipcode=''
+		address.coord=[];
+		
 		
 		createObj.address=address;
 		createObj.creator = req.session.username;
@@ -317,7 +324,11 @@ app.listen(port, function () {
 		createObj.address.street =req.body.street;
 		createObj.address.building=req.body.building;
 		createObj.address.zipcode=req.body.zipcode;
+		createObj.address.coord[0]=req.body.lon;
+		createObj.address.coord[1]=req.body.lat;
 		
+		delete createObj.lat;
+		delete createObj.lon;
 		delete createObj.street;
 		delete createObj.building;
 		delete createObj.zipcode;
@@ -406,14 +417,37 @@ app.listen(port, function () {
 			street=req.street,
 			building=req.building,
 			zipcode=req.zipcode,
-			coord=[req.lon,req.lan]
+			coord=[req.lon,req.lat]
         });
     });*/
 	
 	//Register	
     app.post('/register',function(req,res){
-		var username =req.body.username; //Requirement 1
+		var name =req.body.username; //Requirement 1
 		var password =req.body.password;
+		var createObj ={};
+		var createUser = true; 
+		createObj.name=name;
+		createObj.password=password;
+		console.log('1'+name);
+		console.log(password);
+		for(var i =0 ;i<users.length;i++){
+			if(users[i].name==name&&users[i].password==password){
+				createUser = false; 
+				break;
+			}
+		}
+			if(createUser){
+			users.push(createObj);
+			req.session.authenticated = true;
+			req.session.username = name;
+			console.log("Got:"+ req.session.username);
+			console.log(users);
+			res.redirect('/read');
+			return next()
+		
+		}
+		
 	});
     //LOGOUT
     app.get('/logout', function(req, res) {

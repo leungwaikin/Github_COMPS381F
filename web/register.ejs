@@ -1,0 +1,18 @@
+<html>
+<head>
+    <% include inc/head %>
+      <title>Register</title>
+   </head>
+   <body>
+      <% include inc/navbar_register %>
+	       <div class="container site-container">
+   <form action="/register" method="post">
+                     <b>Username:</b>
+                     <input type="text" placeholder="Enter Username" name="username" required><br>
+                     <b>Password:</b>
+                     <input type="password" placeholder="Enter Password" name="password"><br>
+                     <button type="submit">Submit</button>      
+   </form>
+   </div>
+   </body>
+</html>

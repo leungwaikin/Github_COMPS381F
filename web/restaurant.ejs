@@ -33,7 +33,7 @@
                   <div class="sub-header">Zipcode:<%if(result.address.zipcode){%><%=result.address.zipcode%><%}%></div>
 				  <%}%>
                   <p></p>
-                  <div class="sub-header">GPS:[<%=result.lon%>,<%=result.lat%>]</div>
+                  <div class="sub-header">GPS:[<%=result.address.coord[1]%>,<%=result.address.coord[0]%>]</div>
                   <p></p>
                   <div class="sub-header">Rating:
 				  <% if(result.grade!=undefined){%>
@@ -50,7 +50,7 @@
                   <p></p>
                                   				 
 				
-                 <a href="/gmap?lat=<%=result.lat%>&lon=<%=result.lon%>&title=<%=result.name%>" >Google map</a><br>
+                 <a href="/gmap?lat=<%=result.address.coord[1]%>&lon=<%=result.address.coord[0]%>&title=<%=result.name%>" >Google map</a><br>
 				  
                   <a href="/rate?_id=<%=result._id%>" data-id="" class="btn btn-primary btn-md rate-restaurant-btn">Rate</a> 
                   

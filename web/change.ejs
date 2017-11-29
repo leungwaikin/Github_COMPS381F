@@ -10,7 +10,7 @@
 <form id='details' method='post' action="/change?_id=<%=result[0]._id%>" encType="multipart/form-data">
 <input type="hidden" name="_id" value=""><br>
 Name: <input type="text" name="name" value="<%=result[0].name%>" required><br>
-Borough: <input type="text" name="borough" value="<%=result[0].borough%>" required><br>
+Borough: <input type="text" name="borough" value="<%=result[0].borough%>" ><br>
 Cuisine: <input type="text" name="cuisine" value="<%=result[0].cuisine%>" ><br>
 Building: <input type="text" name="building" value="<%=result[0].address.building%>" ><br>
 Street: <input type="text" name="street" value="<%=result[0].address.street%>" ><br>
