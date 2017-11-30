@@ -16,8 +16,8 @@ Building: <input type="text" name="building" value="<%=result[0].address.buildin
 Street: <input type="text" name="street" value="<%=result[0].address.street%>" ><br>
 Zipcode: <input type="text" name="zipcode" value="<%=result[0].address.zipcode%>" ><br>
 
-GPS Coordinates (lon.): <input name="lon" type="text" value="<%=result[0].lon%>"><br>
-GPS Coordinates (lan.): <input name="lat" type="text" value="<%=result[0].lat%>"><br>
+GPS Coordinates (lon.): <input name="lon" type="text" value="<%=result[0].address.coord[0]%>"><br>
+GPS Coordinates (lan.): <input name="lat" type="text" value="<%=result[0].address.coord[1]%>"><br>
 <%if(result[0].image){%>
 <img class="img-responsive" src="/img/<%=result[0].image%>.png" alt="">
 <%}%>

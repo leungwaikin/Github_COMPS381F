@@ -697,9 +697,28 @@ app.listen(port, function () {
 	app.get('/filter',isLoggedIn,function(req,res,next){
 		 console.log(req.session.username +"searching doc");
 		 var criteria={};
-		 criteria[req.query.searchBy]=req.query.condition;
 		 console.log(req.query.searchBy);
-		 console.log(req.query.condition);
+		
+		
+		 
+		if(req.query.searchBy=="street"||req.query.searchBy=="building"||req.query.searchBy=="zipcode"||req.query.searchBy=="coord"){
+			
+			var searchBy=req.query.searchBy;
+			if(searchBy=="coord"){
+				var coord = req.query.condition.split(',');
+				criteria["address."+req.query.searchBy]=coord;
+			}else{
+				criteria['address.'+searchBy]=req.query.condition;
+			}
+		}else{
+		 criteria[req.query.searchBy]=req.query.condition;
+		}
+		  if(req.query.searchBy=="coord"){
+			 
+			
+			 
+			 
+		 }
 		
 		
 		 console.log("criteria="+JSON.stringify(criteria));
