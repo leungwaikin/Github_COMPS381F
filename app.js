@@ -154,7 +154,7 @@ app.listen(port, function () {
 			var cursor=db.collection('restaurant').find({_id: ObjectId(got_id)});
 			cursor.each(function(err,doc){  
 			  if(doc!=null){
-				console.log(doc);
+
 				restaurant.push(doc);
 			   }else{
 				 res.render('change.ejs', {result:restaurant ,action:"change"});
@@ -168,89 +168,30 @@ app.listen(port, function () {
 	
     //Create
    app.post('/new', function(req, res) { 
-   //base64
-   var imageString ="";
-   console.log(req.files.ima);
-      //console.log(req.files);
-		if (req.files.ima){
-		let image = req.files.ima;
-		var imgName = new Date().getTime();
-		var newPath = __dirname + "/img/" + imgName + ".png";
-		imageString = imgName;
-		console.log("newPath="+newPath);
-		 image.mv(newPath, function(err) {
-			 
-			if (err)
-			console.log(err)
-			
-			
-   
-		 
-  });
-		}
 		
-		
-		//var imgData = req.body.image;
-
-                //Check if imgData is null or not
-                /*if (imgData != null) {
-                    //Filter data:URL
-                    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-                    var buffer = new Buffer(base64Data, 'base64');
-
-                    //Using the upload-time to name the image
-                    var imgName = new Date().getTime();
-
-                    event.local.filename = imgName;
-                    //Declare a new path for storing image
-                    var newPath = __dirname + "/img/" + imgName + ".png";
-                    fs.writeFile(newPath, buffer, function(err) {
-                        if (err) {
-                            // res.send(err);
-                        } else {
-                            console.log(err);
-                            //res.send("Image Saved");
-                        }
-                    });
-                }*/
-				//end base64
-
-		
+		var image=req.files.image; 
 		var createObj = {};		
 		createObj=req.body;		
 		createObj.grade=[];		
 		createObj.address={};
-		createObj.image=imageString; 
 		createObj.address.coord=[];
 		createObj.creator= req.session.username;
-		//if(req.body.street||req.body.building||req.body.zipcode){
 		createObj.address.street=req.body.street;
 		createObj.address.building=req.body.building;
 		createObj.address.zipcode=req.body.zipcode;
 		createObj.address.coord[0]=req.body.lon;
 		createObj.address.coord[1]=req.body.lat;
-		 //}
+		if(image){
+		createObj.photo=new Buffer(image.data).toString('base64');
+		createObj.photoMimetype=image.mimetype;
+		}
 		 delete createObj.lat;
 		 delete createObj.lon;
 		 delete createObj.street;
 		 delete createObj.building;
 		 delete createObj.zipcode;
-		//console.log(req.body.street);
-		 /*createObj.name =req.body.name;	 
-         createObj.borough =req.body.borough;
-		 createObj.cuisine =req.body.cuisine;
-		 
-		 createObj.address.street =req.body.street;
-		 createObj.address.building=req.body.building;
-		 createObj.address.zipcode=req.body.zipcode;
-		 createObj.lon=req.body.lon;
-		 createObj.lat=req.body.lat;
-		 createObj.image =req.body.image;
-		 createObj.address.street.replace('null','');
-		 createObj.address.building.replace('null','');
-		 createObj.address.zipcode.replace('null','');*/
+		
 
-		console.log("new="+JSON.stringify(createObj));
 		
 		/*To-DO insert data to mongodb*/ 
 		 db.collection('restaurant').insert(createObj,(err, restaurant) => {
@@ -267,41 +208,30 @@ app.listen(port, function () {
 	app.post('/change', function(req, res) {
 		var action="change";
 		var createObj = {};	
-		console.log("*** 1");
+		console.log(req.body);
 		console.log("changing doc");
 		console.log("1:"+req.body.creator);
 		console.log("2"+req.session.username);
-		var image2 =null;
-		var imageString="";
+
+		var image  = req.files.image;
 		
-		if (req.files.ima){
-			
-			console.log("***********************111");
-		image2 = req.files.ima;
-		var imgName = new Date().getTime();
-		var newPath = __dirname + "/img/" + imgName + ".png";
-		imageString = imgName;
-		console.log("newPath="+newPath);
-		 image2.mv(newPath, function(err) {
-			 
-			if (err)
-			console.log(err)
-			
-			
+		if (image){
+	console.log("**************************************************************");
+		console.log("access");
+		createObj.photo=new Buffer(image.data).toString('base64');
+		createObj.photoMimetype=image.mimetype;
    
 		 
-			});
-		}else{
-			console.log("image:"+req.body.oldImage);
-		if(req.body.oldImage!=undefined)
-		imageString = req.body.oldImage;
-		createObj.image = imageString;
+		}
+		else{
+				console.log("-----------------------------------------------");
+		createObj.photo=req.body.oldPhoto;
+		createObj.photoMimetype=req.body.oldPhotoMimetype;
+		delete createObj.oldPhoto;
+		delete createObj.oldPhotoMimetype;
 		}
 		//working
 		var oid = req.query._id;
-		
-		
-		
 		createObj.address={};
 		createObj=req.body;	
 		
@@ -315,10 +245,7 @@ app.listen(port, function () {
 		createObj.address=address;
 		createObj.creator = req.session.username;
 		console.log("nothing:"+JSON.stringify(createObj));
-		
-		//if(imageString != ""){
-			createObj.image=imageString; 
-		//}
+
 		
 		
 		createObj.address.street =req.body.street;
@@ -332,7 +259,8 @@ app.listen(port, function () {
 		delete createObj.street;
 		delete createObj.building;
 		delete createObj.zipcode;
-		delete createObj.oldImage;
+
+		
 		/*var name =	req.query.name;	 
         var borough =req.query.borough;
 		var cuisine =req.query.cuisine;

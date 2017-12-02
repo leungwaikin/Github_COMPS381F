@@ -18,12 +18,13 @@ Zipcode: <input type="text" name="zipcode" value="<%=result[0].address.zipcode%>
 
 GPS Coordinates (lon.): <input name="lon" type="text" value="<%=result[0].address.coord[0]%>"><br>
 GPS Coordinates (lan.): <input name="lat" type="text" value="<%=result[0].address.coord[1]%>"><br>
-<%if(result[0].image){%>
-<img class="img-responsive" src="/img/<%=result[0].image%>.png" alt="">
+<%if(result[0].photo){%>
+<img class="img-responsive" src="data:<%=result[0].photoMimetype%>;base64,<%=result[0].photo%>"/>
 <%}%>
 
-<input type="hidden" name="oldImage" value="<%=result[0].image%>">
-Upload new Photo:<input name="ima" type="file" value="result[0].image"><br>
+<input type="hidden" name="oldPhoto" value="<%=result[0].photo%>">
+<input type="hidden" name="oldPhotoMimetype" value="<%=result[0].photoMimetype%>">
+Upload new Photo:<input name="image" type="file" ><br>
 </form>
 <script>
 function goBack() {window.history.back();}

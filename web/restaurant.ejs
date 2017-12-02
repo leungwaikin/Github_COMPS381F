@@ -13,8 +13,8 @@
 			 
                <!-- photo -->
              <br>
-               <%if(result.image){%>
-                  <img class="img-responsive" src="/img/<%=result.image%>.png" alt="">
+               <%if(result.photo){%>
+                 <img  class="img-responsive" src="data:<%=result.photoMimetype%>;base64,<%=result.photo%>"/>
                 <%}%>
                <div class="caption-full">
                  
