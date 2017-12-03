@@ -374,7 +374,7 @@ app.listen(port, function () {
 			console.log("Got:"+ req.session.username);
 			console.log(users);
 			res.redirect('/read');
-			return next()
+			//return next()  <<useless?
 		
 		}
 		
