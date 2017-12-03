@@ -215,21 +215,8 @@ app.listen(port, function () {
 
 		var image  = req.files.image;
 		
-		if (image){
-	console.log("**************************************************************");
-		console.log("access");
-		createObj.photo=new Buffer(image.data).toString('base64');
-		createObj.photoMimetype=image.mimetype;
-   
-		 
-		}
-		else{
-				console.log("-----------------------------------------------");
-		createObj.photo=req.body.oldPhoto;
-		createObj.photoMimetype=req.body.oldPhotoMimetype;
-		delete createObj.oldPhoto;
-		delete createObj.oldPhotoMimetype;
-		}
+		
+
 		//working
 		var oid = req.query._id;
 		createObj.address={};
@@ -247,7 +234,20 @@ app.listen(port, function () {
 		console.log("nothing:"+JSON.stringify(createObj));
 
 		
-		
+		if (image){
+	console.log("**************************************************************");
+		console.log("access");
+		createObj.photo=new Buffer(image.data).toString('base64');
+		createObj.photoMimetype=image.mimetype;
+   
+		 
+		}
+		else{
+				console.log("-----------------------------------------------");
+		createObj.photo=req.body.oldPhoto;
+		createObj.photoMimetype=req.body.oldPhotoMimetype;
+
+		}
 		createObj.address.street =req.body.street;
 		createObj.address.building=req.body.building;
 		createObj.address.zipcode=req.body.zipcode;
@@ -259,7 +259,9 @@ app.listen(port, function () {
 		delete createObj.street;
 		delete createObj.building;
 		delete createObj.zipcode;
-
+		
+		delete createObj.oldPhoto;
+		delete createObj.oldPhotoMimetype;
 		
 		/*var name =	req.query.name;	 
         var borough =req.query.borough;
@@ -288,7 +290,7 @@ app.listen(port, function () {
 		createObj._id= ObjectId(oid);
 		
 	   
-        res.render('restaurant.ejs', {result:createObj,action:action});
+        res.render('restaurant.ejs',{result:createObj,action:action});
 				
 		   /*var id=req.query.id;
 		    MongoClient.connect(mongourl, function(err, db) {
